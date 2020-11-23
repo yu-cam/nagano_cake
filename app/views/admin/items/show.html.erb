@@ -1,0 +1,17 @@
+<div class="container">
+<h2>商品詳細</h2>
+<!-- image -->
+<%= attachment_image_tag @item, :image, :fill, 300, 300, format: 'jpeg' %>
+
+<h2>商品名</h2>
+<p><%= @item.name %></p>
+<h2>商品説明</h2>
+<p><%= @item.introduction %></p>
+<h2>ジャンル</h2>
+<p><%= @item.genre %>
+<h2>税込価格(税抜価格)</h2>
+<p><%= @item.price %>
+<h2>販売ステータス</h2>
+<p><%= f.select :is_active ,[['販売中',true],['販売停止中',false]] %></p>
+<!-- btn -->
+<%= link_to "編集する", edit_item_path(@item.id),class: "btn-sm btn-success" %>

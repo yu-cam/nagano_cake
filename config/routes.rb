@@ -25,4 +25,10 @@ devise_for :customers, controllers: {
   passwords:     'customerss/passwords',
   registrations: 'customers/registrations'
 }
+
+
+# resources :items, only: [:index, :show]
+  namespace :admin do
+    resources :items, except: [:destroy]
+  end
 end
