@@ -1,15 +1,18 @@
 class Admin::ItemsController < ApplicationController
-  before_action :if_not_admin
+  # before_action :if_not_admin
 
   def index
   	@items = Item.all
   end
 
   def new
-  	@book = Book.find(params[:id])
+  	@item = Item.new
   end
 
   def create
+    @item = Item.new(item_params)
+    @item.save!
+    redirect_to admin_item_path(@item.id)
   end
 
   def show
@@ -21,17 +24,17 @@ class Admin::ItemsController < ApplicationController
   end
 
   def update
-  	item = Iist.find(params[:id])
+  	item = Item.find(params[:id])
     item.update(item_params)
-    redirect_to items_path(item.id)
+    redirect_to admin_items_path(item.id)
   end
 
 private
-  def if_not_admin
-    redirect_to root_path unless current_user.admin?
-  end
+  # def if_not_admin
+  #   redirect_to root_path unless current_customer.admin?
+  # end
 
   def item_params
-  	params.require(:item).permit(:name, :introduction, :price)
+  	params.require(:item).permit(:name, :introduction, :price, :genre_id, :image, :is_active)
   end
 end
