@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   root to: 'homes#top'
-  get 'homes/about' => 'homes#about'
+  get '/about' => 'homes#about'
+  resources :items, only: [:show, :index]
   namespace :admin do
     resources :items, except: [:destroy]
   end
   namespace :admin do
     resources :genres, except: [:show, :destroy]
+  end
+  namespace :admin do
+    resources :end_users, except: [:new, :create, :destroy]
   end
 
 
@@ -23,14 +27,14 @@ Rails.application.routes.draw do
   #   get "sign_out", :to => "admins/sessions#destroy"
   # end
 
-  devise_for :admins, controllers: {
+  devise_for :admin, controllers: {
   sessions:      'admins/sessions',
   passwords:     'admins/passwords',
   registrations: 'admins/registrations'
 }
 devise_for :customers, controllers: {
   sessions:      'customers/sessions',
-  passwords:     'customerss/passwords',
+  passwords:     'customers/passwords',
   registrations: 'customers/registrations'
 }
 
