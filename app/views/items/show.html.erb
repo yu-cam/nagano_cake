@@ -1,2 +1,24 @@
-<h1>Items#show</h1>
-<p>Find me in app/views/items/show.html.erb</p>
+<div class="container">
+  <div class="row">
+  <div class="col-md-4">
+<!-- image -->
+<%= attachment_image_tag @item, :image, :fill, 300, 300, format: 'jpeg' %>
+  </div>
+
+  <div class="col-md-8 ">
+  <h4>商品名</h4>
+  <p><%= @item.name %></p>
+  <h4>商品説明</h4>
+  <p><%= @item.introduction %></p>
+  <h4>税込価格(税抜価格)</h4>
+  <p><%= @item.price %></p>
+  <P><%= ((@item.price * 1.08).round(2)).ceil %></p>
+
+  <%= form_with(model: @cart_item) do |f| %>
+  <p><%= f.select :amount, [["1", 1], ["2", 2], ["3", 3], ["4", 4]], include_blank: "選択してください" %></p>
+  <% end %>
+<!-- btn -->
+  <%= link_to "カートに入れる", class: "btn-sm btn-success" %>
+  </div>
+  </div>
+</div>

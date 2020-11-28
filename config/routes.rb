@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'homes#top'
   get '/about' => 'homes#about'
+  get '/orders/thanks' => 'orders#thanks'
+  resources :orders, only: [:index, :show, :new, :create]
+  resources :cart_items, only: [:index, :update, :create, :destroy]
   resources :items, only: [:show, :index]
   namespace :admin do
     resources :items, except: [:destroy]

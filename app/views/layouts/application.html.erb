@@ -29,11 +29,12 @@
     <div class="collapse navbar-collapse" id="navbarEexample7">
       <ul class="nav navbar-nav navbar-right">
         <% if admin_signed_in? %>
+        <!-- admin -->
         <li class="">
         <%= link_to "商品一覧", admin_items_path %>
         </li>
         <li class="">
-        <%= link_to "会員一覧", root_path %>
+        <%= link_to "会員一覧", admin_end_users_path %>
         </li>
         <li class="">
         <%= link_to "注文履歴一覧", root_path %>
@@ -44,22 +45,33 @@
         <li class="">
         <%= link_to "Logout", destroy_admin_session_path, method: :delete %>
         </li>
+        <% elsif customer_signed_in? %>
+        <li class="">
+        <!-- customer -->
+        <%= link_to 'マイページ', about_path %>
+        </li>
+        <li class="">
+        <%= link_to '商品一覧' , items_path %>
+        </li>
+        <li class="">
+        <%= link_to 'カート', root_path %>
+        </li>
+        <li class="">
+        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
         <% else %>
         <li class="">
-        <%= link_to 'About', root_path %>
+        <%= link_to 'About', about_path %>
         </li>
         <li class="">
-        <%= link_to '商品一覧' , admin_items_path %>
+        <%= link_to '商品一覧' , items_path %>
         </li>
         <li class="">
-        <%= link_to '新規登録', new_admin_registration_path %>
+        <%= link_to '新規登録', new_customer_registration_path %>
         </li>
         <li class="">
-        <%= link_to "ログイン", new_admin_session_path %>
+        <%= link_to "ログイン", new_customer_session_path %>
         </li>
-
-
-    <% end %>
+        <% end %>
       </ul>
     </div>
     </div>

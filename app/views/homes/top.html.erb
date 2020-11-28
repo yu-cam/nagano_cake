@@ -4,9 +4,15 @@
 	<p>このサイトは、ケーキ販売のECサイトになります。</p>
 	<p>会員でない⽅も商品の閲覧はできますが、</p>
 	<p>購⼊には会員登録が必要になります。</p>
-    <p>
-  	<%= link_to "全ての商品を見る" %>
-	</p>
+
 	<h4>新着商品</h4>
+	<% @item.each do |item| %>
+	<tr>
+	<td><%= attachment_image_tag item, :image, :fill, 150, 150, format: 'jpeg' %></td>
+    <td><%= item.name %></td>
+    <td><%= item.price %></td>
+    </tr>
+	<% end %>
+	<p><%= link_to "全ての商品を見る" %></p>
   </div>
 </div>
