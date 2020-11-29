@@ -15,10 +15,11 @@
   <P><%= ((@item.price * 1.08).round(2)).ceil %></p>
 
   <%= form_with(model: @cart_item) do |f| %>
+  <%= f.hidden_field :item_id, value: @item.id %>
   <p><%= f.select :amount, [["1", 1], ["2", 2], ["3", 3], ["4", 4]], include_blank: "選択してください" %></p>
   <% end %>
 <!-- btn -->
-  <%= link_to "カートに入れる", class: "btn-sm btn-success" %>
+  <%= f.submit 'カートに入れる', class: "btn-sm btn-success" %>
   </div>
   </div>
 </div>
