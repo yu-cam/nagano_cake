@@ -68,3 +68,4 @@ gem "refile-mini_magick"
 # boot-strap
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
+gem 'pry-rails'

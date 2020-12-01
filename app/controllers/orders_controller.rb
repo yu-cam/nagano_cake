@@ -7,11 +7,14 @@ class OrdersController < ApplicationController
 
   def new
    @order = Order.new
-   @address = Address.new
-   adress = current_customer.address
+   @customer = current_customer
   end
 
   def create
+   @address = Address.new(address_params)
+   @address.customer_id = current_customer.id
+   @address.save!
+   render action: :confirm
   end
 
   def thanks
