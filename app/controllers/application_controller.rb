@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
     def after_sign_in_path_for(resource)
       if resource.class.name == 'Customer'
-      items_path
+      public_items_path
       else
       admin_items_path
     end
