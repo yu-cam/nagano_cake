@@ -14,7 +14,7 @@
   <p><%= @item.price %></p>
   <P><%= ((@item.price * 1.08).round(2)).ceil %></p>
 
-  <%= form_with(model: @cart_item) do |f| %>
+  <%= form_with(model: @cart_item, url: public_cart_items_path) do |f| %>
   <%= f.hidden_field :item_id, value: @item.id %>
   <p><%= f.select :amount, [["1", 1], ["2", 2], ["3", 3], ["4", 4]],selected: "3" %></p>
 <!-- btn -->

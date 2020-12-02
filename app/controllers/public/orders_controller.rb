@@ -14,18 +14,16 @@ class Public::OrdersController < ApplicationController
    @address = Address.new(address_params)
    @address.customer_id = current_customer.id
    @address.save!
-   if  params[:order][:address_option] == "0"
-   elsif params[:order][:address_option] == "1"
-   elsif params[:order][:address_option] == "2"
 end
-end
-
-  end
 
   def thanks
   end
 
   def confirm
+    if  params[:order][:address_option] == "0"
+   elsif params[:order][:address_option] == "1"
+   elsif params[:order][:address_option] == "2"
+  end
   end
 
 def orders_params
