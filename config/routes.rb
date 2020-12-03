@@ -15,7 +15,7 @@ devise_for :customers, controllers: {
   post '/orders/confirm' => 'orders#confirm'
   get '/orders/thanks' => 'orders#thanks'
   get '/customers/hide' => 'customers#hide'
-  get '/customers/withdraw' => 'customers#withdraw'
+  patch '/customers/withdraw' => 'customers#withdraw', as: 'withdraw'
   get '/customers/mypage' => 'customers#show'
   resources :cart_items do
     collection do
