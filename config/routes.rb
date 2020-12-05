@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :items, only: [:show, :index]
  end
   namespace :admin do
+    resources :orders, only: [:index, :show, :update]
     resources :end_users, except: [:new, :create, :destroy]
     resources :genres, except: [:show, :destroy]
     resources :items, except: [:destroy]

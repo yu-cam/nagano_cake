@@ -3,7 +3,7 @@
   	<h4>注文情報確認</h4>
     <table class="table table-bordered">
 	<thead>
-        <tr>
+    <tr>
 			<th>商品名</th>
 			<th>単価(税込)</th>
 			<th>数量</th>
@@ -34,19 +34,21 @@
            </tr>
        </thead>
        <tbody>
-         <tr>
-           <td><%= shipping_cost %></td>
+           <tr>
+           <td><%= 800 %></td>
            </tr>
            <tr>
-            <td><%= ((@total_price * 1.08).round(2)).ceil %></td>
+           <td><%= ((@total_price * 1.08).round(2)).ceil %></td>
            </tr>
            <tr>
-           	<td><%= total_payment %></td>
+           <td><%= ((@total_price * 1.08).round(2)).ceil + 800 %></td>
            </tr>
        </tbody>
       </table>
-
-   <h4>支払い方法</h4>
-   <h4>お届け先</h4>
+   <%= form_with model: @order, url:public_orders_path, local: true do |f| %>
+   <h4>支払い方法</h4><%= @order.payment_method %>
+   <h4>お届け先</h4><%= @order.address %>
+   <%= f.submit "注文を確定する", class: "btn btn-primary" %>
+   <% end %>
   </div>
 </div>
