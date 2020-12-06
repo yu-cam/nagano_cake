@@ -22,33 +22,24 @@
 	 </tbody>
      </table>
      <table class="table table-bordered">
-       <thead>
            <tr>
-             <th>合計</th>
+             <th>送料</th>
+             <td><%= 800 %></td>
            </tr>
            <tr>
              <th>商品合計</th>
+             <td><%= ((@total_price * 1.08).round(2)).ceil %></td>
            </tr>
            <tr>
              <th>請求金額</th>
+             <td><%= ((@total_price * 1.08).round(2)).ceil + 800 %></td>
            </tr>
-       </thead>
-       <tbody>
-           <tr>
-           <td><%= 800 %></td>
-           </tr>
-           <tr>
-           <td><%= ((@total_price * 1.08).round(2)).ceil %></td>
-           </tr>
-           <tr>
-           <td><%= ((@total_price * 1.08).round(2)).ceil + 800 %></td>
-           </tr>
-       </tbody>
       </table>
    <%= form_with model: @order, url:public_orders_path, local: true do |f| %>
-   <h4>支払い方法</h4><%= @order.payment_method %>
-   <h4>お届け先</h4><%= @order.address %>
-   <%= f.submit "注文を確定する", class: "btn btn-primary" %>
+     <h4>支払い方法</h4> <%= @order.payment_method %>
+     <h4>お届け先</h4>   <%= @order.postal_code %><%= @order.address %>
+                        <P><%= @order.name %></P>
+   <%= f.submit "注文を確定する", class: "btn-sm btn-success" %>
    <% end %>
   </div>
 </div>
