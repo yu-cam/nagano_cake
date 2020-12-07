@@ -1,11 +1,10 @@
 class Public::OrdersController < ApplicationController
   def index
-    @orders = current_customer_orders
-  end
+    @customer = current_customer
+    @orders = @customer.orders
+    end
 
   def show
-    @orders = current_customer_orders
-    @order = Order.find(params[:id])
   end
 
   def new
@@ -17,6 +16,17 @@ class Public::OrdersController < ApplicationController
    @order = Order.new(order_params)
    @order.customer_id = current_customer.id
    @order.save!
+
+   @cart_items = current_customer.cart_items
+   @cart_items.each do |cart_item|
+     # @order_detail = OrderDetail.new
+     # @order_detail.item_id = cart_item.id
+     # @order_detail.order_id = @order.id
+     # @order_detail.price = cart_item.item.price
+     # @order_detail.amount = cart_item.amount
+     result = OrderDetail.create(item_id: cart_item.id, order_id: @order.id, price: cart_item.item.price, amount: cart_item.amount)
+   end
+   CartItem.destroy_all
    redirect_to public_orders_thanks_path
   end
 
@@ -25,8 +35,10 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @cart_items = current_customer.cart_items
-    @total_price = @cart_items.sum {|cart_item| cart_item.amount * cart_item.item.price }
     @order = Order.new(order_params)
+    @order.total_payment = @cart_items.sum {|cart_item| cart_item.amount * cart_item.item.price }
+    @order.shipping_cost = 800
+    @order.status = 0
     # if params[:order][:payment_method] == "0"
     #    @order.address
     if  params[:order][:address_option] == "0"
@@ -46,6 +58,10 @@ class Public::OrdersController < ApplicationController
   end
 
 def order_params
-    params.require(:order).permit(:customer_id, :address, :name, :shipping_cost, :total_payment, :payment_method, :status)
+    params.require(:order).permit(:customer_id, :address, :name, :shipping_cost, :total_payment, :payment_method, :status, :postal_code, :created_at)
   end
+# def order_detail_params
+#    params.require(:order_detail).permit(:item_id, :order_id, :price, :amount)
+# end
+
 end

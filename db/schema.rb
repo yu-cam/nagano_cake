@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2020_11_21_114659) do
     t.integer "item_id"
     t.integer "price", null: false
     t.integer "amount", null: false
-    t.integer "maiking_status", null: false
+    t.integer "maiking_status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
