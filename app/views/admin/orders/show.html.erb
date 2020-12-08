@@ -12,35 +12,34 @@
       <h5>注文ステータス</h5>
         <p><%= @order.status %></p>
 
-
       <table class="table table-striped">
         <thead>
-      	<tr>
-      	<th>商品名</th>
-      	<th>単価(税込)</th>
-      	<th>数量</th>
-      	<th>小計</th>
-      	<th>制作ステータス</th>
-      	</tr>
+        <tr>
+          <th>商品名</th>
+          <th>単価(税込)</th>
+          <th>数量</th>
+          <th>小計</th>
+          <th>制作ステータス</th>
+        </tr>
       </thead>
       <tbody>
-      	<tr>
-      	<% @order_items.each do |order_item|  %>
-        <td><%= order_item.item.name  %></td>
-        <td><%= ((order_item.item.price * 1.08).round(2)).ceil %></td>
-        <td><%= order_item.amount %></td>
-        <td><%= ((order_item.item.price * order_item.amount * 1.08)).round(2).ceil %></td>
-        <td><%= order_item.status %></td>
-        <% end %>
+        <tr>
+          <% @order.order_details.each do |order_detail_item|  %>
+          <td><%= order_detail_item.item.name %></td>
+          <td><%= ((order_detail_item.item.price * 1.08).round(2)).ceil %></td>
+          <td><%= order_detail_item.amount %></td>
+          <td><%= ((order_detail_item.item.price * order_detail_item.amount * 1.08)).round(2).ceil %></td>
+          <td><%= order_detail_item.maiking_status %></td>
+          <% end %>
         </tr>
       </tbody>
       </table>
 
       <h5>商品合計</h5>
-      <p><%= ((@total_price * 1.08).round(2)).ceil %></p>
+      <p><%= ((@order.total_payment * 1.08).round(2)).ceil %></p>
       <h5>送料</h5>
-      <p><%= 800 %></p>
+      <p><%= @order.shipping_cost %></p>
       <h5>請求金額合計</h5>
-      <p><%= ((@total_price * 1.08).round(2)).ceil + 800 %></p>
+      <p><%= ((@order.total_payment * 1.08).round(2)).ceil + 800 %></p>
   </div>
 </div>

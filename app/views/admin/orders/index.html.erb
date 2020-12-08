@@ -2,24 +2,30 @@
   <div class="row">
   	<h4>注文履歴一覧</h4>
       <table class="table table-striped">
-      <thead>
-      	<tr>
-      	<th>購入日時</th>
-      	<th>購入者</th>
-      	<th>注文個数</th>
-      	<th>注文ステータス</th>
-      	</tr>
-      </thead>
-      <tbody>
-      	<tr>
-      	<% @orders.each do |order|  %>
-        <td><%= link_to order.created_at, admin_order_path(order.id) %></td>
-        <td><%= order.customer.name %></td>
-        <td><%= order.amount %></td>
-        <td><%= order.status %></td>
-        <% end %>
-        </tr>
-      </tbody>
+        <thead>
+      	  <tr>
+      	     <th>購入日時</th>
+      	     <th>購入者</th>
+      	     <th>注文個数</th>
+      	     <th>注文ステータス</th>
+      	  </tr>
+        </thead>
+        <tbody>
+      	    <% @orders.each do |order|  %>
+          <tr>
+            <td><%= link_to order.created_at, admin_order_path(order.id) %></td>
+            <td><%= order.customer.first_name %></td>
+                <% @sum = 0 %>
+            <td><% order.order_details.each do |detail| %>
+                <% @sum += detail.amount %>
+                   <!-- @sum = @sum + detail.amount -->
+                <% end %>
+                <%= @sum %>
+            </td>
+            <td><%= order.status %></td>
+          </tr>
+            <% end %>
+        </tbody>
       </table>
   </div>
 </div>

@@ -1,11 +1,10 @@
 class Admin::OrdersController < ApplicationController
   def index
-    @orders = Oder.all
+    @orders = Order.all
   end
 
   def show
     @order = Order.find(params[:id])
-    @order_items = @order.items
   end
 
   def update
