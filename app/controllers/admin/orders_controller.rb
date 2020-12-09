@@ -8,6 +8,15 @@ class Admin::OrdersController < ApplicationController
   end
 
   def update
+    @order = Order.find(params[:id])
+    @order.update(order_params)
+    @order_details = @order.order_details
+    if @order.status_before_type_cast == 1
+       @order_details.each do |order_detail|
+       order_detail.update(maiking_status: 1)
+    end
+    end
+    redirect_to admin_order_path(@order)
   end
 
   private
