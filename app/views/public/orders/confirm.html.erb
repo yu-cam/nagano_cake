@@ -14,7 +14,7 @@
 		<tr>
 			<% @cart_items.each do |cart_item| %>
 			<th><%= cart_item.item.name %></th>
-			<td><%= cart_item.item.price %></td>
+			<td><%= ((cart_item.item.price * 1.08).round(2)).ceil %></td>
 			<td><%= cart_item.amount %></td>
 			<td><%= ((cart_item.item.price * cart_item.amount * 1.08).round(2)).ceil %></td>
 			<% end %>
@@ -46,7 +46,7 @@
      <%= f.hidden_field :status, :value => @order.status %>
      <%= f.hidden_field :created_at, :value => @order.created_at %>
      <h4>支払い方法</h4> <%= @order.payment_method %>
-     <h4>お届け先</h4>   <%= @order.postal_code %><%= @order.address %>
+     <h4>お届け先</h4>〒<%= @order.postal_code %><%= @order.address %>
                         <P><%= @order.name %></P>
    <%= f.submit "注文を確定する", class: "btn-sm btn-success" %>
    <% end %>

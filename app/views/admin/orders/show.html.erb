@@ -10,8 +10,10 @@
         <p><%= @order.payment_method %></p>
       <h5>注文ステータス</h5>
         <%#= @order.status %>
-        <%= form_with model: @order, url:admin_order_path, local: true do |f| %>
-        <%= f.select :status, options_for_select([["入金待ち"], ["入金確認"], ["製作中"], ["発注準備中"], ["発送済み"]], selected:@order.status) %>
+        <%= form_with model: @order, url:admin_order_path(@order), local: true do |f| %>
+        <%#= f.select :status, Order.statuses.keys.map { |k| [I18n.t("enums.order.status.#{k}"),k] }%>
+        <%#= @order.status_i18n %>
+        <%= f.select :status, options_for_select([["入金待ち","waiting"], ["入金確認","confirm"], ["製作中","maiking"], ["発注準備中","preparation"], ["発送済み","complete"]], selected: @order.status) %>
         <%= f.submit '更新', class: "btn-sm btn-success" %>
         <% end %>
       <table class="table table-striped">

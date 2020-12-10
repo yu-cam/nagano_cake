@@ -6,26 +6,20 @@
   <%= render "public/shared/error_messages", resource: resource %>
 
   <!--フォーム追加-->
+  <h4>名前</h4>
   <div class="field">
-    <%= f.label :姓 %><br />
-    <%= f.text_field :last_name, autofocus: true %>
+    <%= f.label :姓 %><%= f.text_field :last_name, autofocus: true %>
   </div>
-
   <div class="field">
-    <%= f.label :名 %><br />
-    <%= f.text_field :first_name, autofocus: true %>
+    <%= f.label :名 %><%= f.text_field :first_name, autofocus: true %>
   </div>
-
+  <h4>フリガナ</h4>
   <div class="field">
-    <%= f.label :セイ %><br />
-    <%= f.text_field :last_name_kana, autofocus: true %>
+    <%= f.label :セイ %><%= f.text_field :last_name_kana, autofocus: true %>
   </div>
-
   <div class="field">
-    <%= f.label :メイ %><br />
-    <%= f.text_field :first_name_kana, autofocus: true %>
+    <%= f.label :メイ %><%= f.text_field :first_name_kana, autofocus: true %>
   </div>
-
   <div class="field">
     <%= f.label :メールアドレス %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -63,4 +57,4 @@
   <% end %>
 
   <h4>既に登録済みの方</h4>
-<%= render "public/shared/links" %>
+<%= link_to "こちらから", new_customer_session_path %>
