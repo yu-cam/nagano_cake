@@ -4,25 +4,25 @@
   	<h4>会員一覧</h4>
   	<table class="table table-striped">
     <thead>
-        <tr>
-		  <th>会員ID</th>
+      <tr>
+		    <th>会員ID</th>
 	      <th>氏名</th>
 	      <th>メールアドレス</th>
 	      <th>ステータス</th>
-		  <th colspan="3"></th>
-		</tr>
-	</thead>
+		    <th colspan="3"></th>
+		  </tr>
+	  </thead>
 
-	<tbody>
-		<% @customer.each do |customer| %>
+	  <tbody>
+		  <% @customer.each do |customer| %>
 	      <tr>
           <td><%= customer.id %></td>
     	    <td><%= link_to customer.last_name, admin_end_user_path(customer.id) %></td>
     	    <td><%= customer.email %></td>
     	    <td><% if customer.is_active == true %>有効<% else false %>無効<% end %></td>
-          </tr>
-		<% end %>
-	</tbody>
+        </tr>
+		  <% end %>
+	  </tbody>
     </div>
   </div>
 </div>

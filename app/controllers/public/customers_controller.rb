@@ -28,7 +28,7 @@ class Public::CustomersController < ApplicationController
     #ログアウトさせる
     # reset_session
     # redirect_to root_path
-    redirect_to root_path
+    redirect_to public_root_path
   end
 
 

@@ -13,19 +13,19 @@
 	      </tr>
 	    </thead>
 	    <tbody>
+	      <% @orders.each do |order| %>
 	      <tr>
-	      	<% @orders.each do |order| %>
 	    	<td><%= order.created_at %></td>
 	    	<td><%= order.address %></td>
 	    	<td><% order.order_details.each do |order_detail_item| %>
-	    		<%= order_detail_item.item.name %>
-	    		<% end %></td>
-	    	<td><%= order.total_payment %></td>
+	    	    <%= order_detail_item.item.name %>
+	            <% end %></td>
+	    	<td><%= order.total_payment %>円</td>
 	    	<td><%= order.status %></td>
 	    	<td><%= link_to "表示する", public_order_path(order), class: "btn btn-primary" %></td>
-	    	<% end %>
+	      <% end %>
 	      </tr>
 	    </tbody>
-	   </table>
+	  </table>
   </div>
 </div>

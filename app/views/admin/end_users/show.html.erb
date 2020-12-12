@@ -2,9 +2,9 @@
   <div class="row">
 
   	<h2><%= @customer.last_name %><%= @customer.first_name %> さんの会員詳細</h2>
-
-   <h4>会員ID</h4>
-   <P><%= @customer.id %></P>
+    <br>
+    <h4>会員ID</h4>
+    <P><%= @customer.id %></P>
 
   	<h4>氏名</h4>
     <p><%= @customer.last_name %><%= @customer.first_name %></p>
@@ -24,11 +24,12 @@
     <h4>メールアドレス</h4>
     <p><%= @customer.email %></p>
 
-　　<h4>会員ステータス</h4>
+   <h4>会員ステータス</h4>
    <% if @customer.is_active == true %>有効<% else false %>退会
    <% end %>
    <!-- btn -->
-   <P><%= link_to "編集する", edit_admin_end_user_path(@customer.id),class: "btn-sm btn-success" %></P>
+   <P><%= link_to "編集する", edit_admin_end_user_path(@customer.id), class: "btn btn-success" %>
+      <%= link_to "注文履歴一覧を見る", admin_orders_path, class: "btn btn-primary" %></P>
 
   </div>
 </div>
