@@ -1,6 +1,6 @@
 class Admin::EndUsersController < ApplicationController
   def index
-  	@customer = Customer.all
+  	@customer = Customer.with_deleted
   end
 
   def show
@@ -12,9 +12,9 @@ class Admin::EndUsersController < ApplicationController
   end
 
   def update
-    customer = Customer.find(params[:id])
-    customer.update(customer_params)
-    if customer.save
+    @customer = Customer.find(params[:id])
+    @customer.update(customer_params)
+    if @customer.save
      redirect_to admin_end_user_path(customer.id)
     else
      render :edit
@@ -23,6 +23,6 @@ class Admin::EndUsersController < ApplicationController
 
 private
   def customer_params
-    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :is_actives)
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number)
   end
 end

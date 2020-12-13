@@ -6,6 +6,7 @@ class Public::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @price = @order.order_details.sum {|order_detail| order_detail.amount * order_detail.price }
   end
 
   def new

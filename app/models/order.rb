@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   has_many :order_details
-  belongs_to :customer
+  belongs_to :customer, -> { with_deleted }
   enum payment_method: { クレジットカード: 0, 銀行振込: 1 }
   enum status: { waiting: 0, confirm: 1, maiking: 2, preparation: 3, complete: 4 }
   validates :postal_code, presence: true

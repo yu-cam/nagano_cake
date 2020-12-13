@@ -25,7 +25,7 @@
     <p><%= @customer.email %></p>
 
    <h4>会員ステータス</h4>
-   <% if @customer.is_active == true %>有効<% else false %>退会
+   <% if @customer.deleted_at == nil %>有効<% else %>退会
    <% end %>
    <!-- btn -->
    <P><%= link_to "編集する", edit_admin_end_user_path(@customer.id), class: "btn btn-success" %>
