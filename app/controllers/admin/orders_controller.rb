@@ -12,11 +12,13 @@ class Admin::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @price = @order.order_details.sum {|order_detail| order_detail.amount * order_detail.price }
   end
 
   def update
     @order = Order.find(params[:id])
-    @order.update(order_params)
+    # @order.update(order_params)
+    @order.update(status: params[:order][:status].to_i)
     @order_details = @order.order_details
     if @order.status_before_type_cast == 1
        @order_details.each do |order_detail|

@@ -4,22 +4,32 @@ class Admin::EndUsersController < ApplicationController
   end
 
   def show
-  	@customer = Customer.find(params[:id])
+  	@customer = Customer.with_deleted.find(params[:id])
   end
 
   def edit
-    @customer = Customer.find(params[:id])
+    @customer = Customer.with_deleted.find(params[:id])
   end
 
   def update
-    @customer = Customer.find(params[:id])
+    @customer = Customer.with_deleted.find(params[:id])
     @customer.update(customer_params)
-    if @customer.save
-     redirect_to admin_end_user_path(customer.id)
-    else
-     render :edit
+
+    if params[:customer][:deleted_at] == "0"
+      @customer.restore
+    elsif params[:customer][:deleted_at] == "1"
+      @customer.destroy
     end
+
+    redirect_to admin_end_user_path(@customer.id)
   end
+
+  #   if @customer.save
+  #    redirect_to admin_end_user_path(customer.id)
+  #   else
+  #    render :edit
+  #   end
+  # end
 
 private
   def customer_params

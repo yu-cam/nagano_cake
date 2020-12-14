@@ -27,8 +27,12 @@
     <%= f.text_field :email %>
 
     <h4>会員ステータス</h4>
-    <label><%= f.radio_button :deleted_at, nil %> 有効 </label>
-　  <label><%= f.radio_button :deleted_at, "taikai" %> 退会 </label>
+    <label><%= f.radio_button :deleted_at, 0, checked: @customer.deleted_at ? false : true %>
+        有効
+    </label>
+　  <label><%= f.radio_button :deleted_at, 1, checked: @customer.deleted_at ? true : false %>
+        退会
+    </label>
 <!-- btn -->
      <%= f.submit '変更内容を保存', class: "btn btn-success" %>
 	<% end %>

@@ -3,7 +3,7 @@
     <h5>注文履歴詳細</h5>
       <h5>購入者</h5><P><%= @order.name %></P>
       <h5>注文日</h5>
-        <p><%= @order.created_at %></p>
+        <p><%= @order.created_at.strftime("%Y-%m-%d %H:%M") %></p>
       <h5>配送先</h5>
         <p><%= @order.address %></p>
       <h5>支払方法</h5>
@@ -13,7 +13,7 @@
         <%= form_with model: @order, url:admin_order_path(@order), local: true do |f| %>
         <%#= f.select :status, Order.statuses.keys.map { |k| [I18n.t("enums.order.status.#{k}"),k] }%>
         <%#= @order.status_i18n %>
-        <%= f.select :status, options_for_select([["入金待ち","waiting"], ["入金確認","confirm"], ["製作中","maiking"], ["発注準備中","preparation"], ["発送済み","complete"]], selected: @order.status) %>
+        <%= f.select :status, options_for_select(Order.statuses.to_a, selected: @order.status_before_type_cast) %>
         <%= f.submit '更新', class: "btn-sm btn-success" %>
         <% end %>
       <table class="table table-striped">
@@ -43,10 +43,11 @@
       </table>
 
       <h5>商品合計</h5>
-      <p><%= ((@order.total_payment * 1.08).round(2)).ceil %></p>
+      <p><%= ((@price * 1.08).round(2)).ceil %></p>
+      <%#= ((@order.total_payment * 1.08).round(2)).ceil %>
       <h5>送料</h5>
       <p><%= @order.shipping_cost %></p>
       <h5>請求金額合計</h5>
-      <p><%= ((@order.total_payment * 1.08).round(2)).ceil + 800 %></p>
+      <p><%= ((@price * 1.08).round(2)).ceil + 800 %></p>
   </div>
 </div>
