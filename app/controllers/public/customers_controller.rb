@@ -11,7 +11,7 @@ class Public::CustomersController < ApplicationController
   def update
      @customer = current_customer
      @customer.update(customer_params)
-    if customer.save
+    if @customer.save
      redirect_to public_customers_mypage_path
     else
      render :edit

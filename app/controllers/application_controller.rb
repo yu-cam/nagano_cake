@@ -3,12 +3,20 @@ class ApplicationController < ActionController::Base
 	# deviseコントローラーにストロングパラメータを追加する
 
     def after_sign_in_path_for(resource)
-       # binding.pry
       if resource.class.name == "Customer"
-      public_items_path
+        public_root_path
       else
-      admin_items_path
+        admin_orders_path
+      end
     end
+
+    def after_sign_out_path_for(resource)
+      if resource == :customer
+        # シンボル型:customer ログアウトの際は文字列使えない
+        public_root_path
+      else
+        new_admin_session_path
+      end
     end
 
 	protected
