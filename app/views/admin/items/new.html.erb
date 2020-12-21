@@ -1,0 +1,25 @@
+<div class="container">
+ <div class="row">
+  <div class="col-md-5 col-md-offset-4">
+    <h2>商品新規登録</h2>
+	  <%= form_for(@item, url:admin_items_path) do |f| %>
+    <h4>商品画像</h4>
+    <%= f.attachment_field :image %>
+    <h4>商品名</h4>
+    <%= f.text_field :name %>
+    <h4>商品説明</h4>
+    <%= f.text_area :introduction %>
+    <h4>ジャンル</h4>
+    <%= f.collection_select :genre_id, Genre.all, :id,  :name, include_blank: "選択してください" %>
+    <%#= f.select :genre_id, [["ケーキ", 1], ["プリン", 2], ["焼き菓子", 3], ["キャンディ", 4]], include_blank: "選択してください" %>
+    <h4>税抜価格</h4>
+    <%= f.text_field :price %><h4>円</h4>
+    <h4>販売ステータス</h4>
+　  <label>
+　  <%= f.radio_button :is_active, true %> 販売中 </label>
+　  <label><%= f.radio_button :is_active, false %> 販売停止中</label>
+    <P><%= f.submit '新規登録', class: "btn btn-success" %></P>
+    <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+  <div class="col-md-4">
+<!-- image -->
+<%= attachment_image_tag @item, :image, :fill, 300, 300, format: 'jpeg' %>
+  </div>
+
+  <div class="col-md-8 ">
+  <h1><%= @item.name %></h1>
+
+  <h4><%= @item.introduction %></h4>
+
+  <h3>¥<%= ((@item.price * 1.08).round(2)).ceil %>(税込)</h3>
+
+  <%= form_with(model: @cart_item, url: public_cart_items_path) do |f| %>
+  <%= f.hidden_field :item_id, value: @item.id %>
+  <p><%= f.select :amount, [["1", 1], ["2", 2], ["3", 3], ["4", 4]],selected: "3" %></p>
+<!-- btn -->
+  <%= f.submit 'カートに入れる', class: "btn-sm btn-success" %>
+  <% end %>
+  </div>
+  </div>
+</div>

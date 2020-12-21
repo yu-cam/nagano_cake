@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <h5>注文履歴詳細</h5>
+      <h5>購入者</h5><P><%= @order.name %></P>
+      <h5>注文日</h5>
+        <p><%= @order.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+      <h5>配送先</h5>
+        <p><%= @order.address %></p>
+      <h5>支払方法</h5>
+        <p><%= @order.payment_method %></p>
+      <h5>注文ステータス</h5>
+        <%#= @order.status %>
+        <%= form_with model: @order, url:admin_order_path(@order), local: true do |f| %>
+        <%#= f.select :status, Order.statuses.keys.map { |k| [I18n.t("enums.order.status.#{k}"),k] }%>
+        <%#= @order.status_i18n %>
+        <%= f.select :status, options_for_select(Order.statuses.to_a, selected: @order.status_before_type_cast) %>
+        <%= f.submit '更新', class: "btn-sm btn-success" %>
+        <% end %>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>商品名</th>
+          <th>単価(税込)</th>
+          <th>数量</th>
+          <th>小計</th>
+          <th>制作ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% @order.order_details.each do |order_detail_item|  %>
+          <td><%= order_detail_item.item.name %></td>
+          <td><%= ((order_detail_item.item.price * 1.08).round(2)).ceil %></td>
+          <td><%= order_detail_item.amount %></td>
+          <td><%= ((order_detail_item.item.price * order_detail_item.amount * 1.08)).round(2).ceil %></td>
+              <td><%= form_with model: order_detail_item, url:admin_order_detail_path(order_detail_item.id), local: true do |f| %>
+              <%= f.select :maiking_status, OrderDetail.maiking_statuses.keys.to_a, selected:order_detail_item.maiking_status %><!-- add options_for_select(), selected:() -->
+              <%= f.submit '更新する', class: "btn-sm btn-success" %></td>
+              <% end %>
+          <% end %>
+        </tr>
+      </tbody>
+      </table>
+
+      <h5>商品合計</h5>
+      <p><%= ((@price * 1.08).round(2)).ceil %></p>
+      <%#= ((@order.total_payment * 1.08).round(2)).ceil %>
+      <h5>送料</h5>
+      <p><%= @order.shipping_cost %></p>
+      <h5>請求金額合計</h5>
+      <p><%= ((@price * 1.08).round(2)).ceil + 800 %></p>
+  </div>
+</div>
